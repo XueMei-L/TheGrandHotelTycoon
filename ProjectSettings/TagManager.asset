@@ -13,6 +13,9 @@ TagManager:
   - Fluid
   - Room
   - Client
+  - RestRoom
+  - RestArea
+  - workArea
   layers:
   - Default
   - TransparentFX
