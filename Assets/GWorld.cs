@@ -131,6 +131,16 @@ public sealed class GWorld
         return clients.Dequeue();
     }
 
+    public GameObject PrintClientList()
+    {
+        if (clients.Count == 0) return null;
+        foreach (GameObject c in clients)
+        {
+            Debug.Log(c);
+        }
+        return clients.Dequeue();
+    }
+
     // --- 房间队列管理 ---
     public void AddRoom(GameObject p)
     {

@@ -12,12 +12,17 @@ public class Client : GAgent
 
         // 2. 给客人添加第一个核心目标：想要成功办理入住（clientHasRegisted = 1）
         // 参数：("目标状态名", 目标值[老师框架填1], 达成后是否移除该目标)
-        SubGoal s1 = new SubGoal("clientHasRegisted", 1, true);
+        SubGoal s1 = new SubGoal("hasRegisted", 1, true);
         goals.Add(s1, 3);
         
         SubGoal s2 = new SubGoal("isWaiting", 1, true);
         goals.Add(s2, 3);
         
-        // 3. 把目标加入客人的大脑列表，数字 3 是优先级
+        SubGoal s3 = new SubGoal("inRoom", 1, true);
+        goals.Add(s3, 3);
+        
+        // SubGoal s4 = new SubGoal("isWaiting", 1, true);
+        // goals.Add(s4, 3);
+        
     }
 }

@@ -21,7 +21,6 @@ public class Nurse : GAgent
         beliefs.ModifyState("exhausted", 0);
         Invoke("GetTired", Random.Range(10, 20));
     }
-    
 
 }
 
