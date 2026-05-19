@@ -8,9 +8,9 @@ public class Concierge : GAgent
     {
         base.Start();
 
-        // 参数：("目标状态名", 目标值[老师框架填1], 达成后是否移除该目标)
         // SubGoal s1 = new SubGoal("hasPickedUpGuest", 1, false);
         // goals.Add(s1, 5);
+        
         // clientWaiting
         // beliefs.ModifyState("clientWaiting", 0);
         // GWorld.Instance.GetWorld().ModifyState("clientWaiting", 0);

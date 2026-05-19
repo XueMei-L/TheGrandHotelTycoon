@@ -10,21 +10,24 @@ public sealed class GWorld
     
     // 酒店核心队列：客人排队队列、空闲房间队列
     private static Queue<GameObject> clients;
-    private static Queue<GameObject> rooms;
-    private static Queue<GameObject> restaurantChairs;
+    // private static Queue<GameObject> rooms;
+    private static List<GameObject> rooms;
+    // private static Queue<GameObject> restaurantChairs;
+
+    private static List<GameObject> restaurantChairs;
 
     static GWorld()
     {
         world = new WorldStates();
         clients = new Queue<GameObject>();
-        rooms = new Queue<GameObject>();
-        restaurantChairs = new Queue<GameObject>();
+        rooms = new List<GameObject>();
+        restaurantChairs = new List<GameObject>();
 
         // 自动寻找场景中所有带有 "Room" Tag 的房间物体，并塞进空闲房间队列
         GameObject[] rm = GameObject.FindGameObjectsWithTag("Room");
         foreach (GameObject r in rm)
         {
-            rooms.Enqueue(r);
+            rooms.Add(r);
         }
             
         // 如果场景里有房间，初始化世界状态中的空闲房间数量
@@ -36,7 +39,7 @@ public sealed class GWorld
         GameObject[] chairs = GameObject.FindGameObjectsWithTag("RestaurantChair");
         foreach (GameObject chair in chairs)
         {
-            restaurantChairs.Enqueue(chair);
+            restaurantChairs.Add(chair);
         }
 
         Debug.Log($"【GWorld】场景里一共有 {chairs.Length} 把餐厅椅子。");
@@ -74,18 +77,13 @@ public sealed class GWorld
     {
         if (clients.Count == 0) return null;
         Debug.Log("当前排队等候的客人有：" + clients.Count);
-        // foreach (GameObject c in clients)
-        // {
-        //     Debug.Log(c);
-        // }
-        // return clients.Dequeue();
         return null;
     }
 
     // --- 房间队列管理 ---
     public void AddRoom(GameObject p)
     {
-        rooms.Enqueue(p);
+        rooms.Add(p);
     }
 
     public int GetRoomCount()
@@ -96,18 +94,24 @@ public sealed class GWorld
     public GameObject RemoveRoom()
     {
         if (rooms.Count == 0) return null;
-        return rooms.Dequeue();
+        int randomIndex = Random.Range(0, rooms.Count);
+        GameObject room = rooms[randomIndex];
+        rooms.RemoveAt(randomIndex);
+        return room;
     }
 
     public GameObject RemoveChair()
     {
         if (restaurantChairs.Count == 0) return null;
-        return restaurantChairs.Dequeue();
+        int randomIndex = Random.Range(0, restaurantChairs.Count);
+        GameObject chair = restaurantChairs[randomIndex];
+        restaurantChairs.RemoveAt(randomIndex);
+        return chair;
     }
     
     public void AddChair(GameObject c)
     {
-        restaurantChairs.Enqueue(c);
+        restaurantChairs.Add(c);
     }
 
 }

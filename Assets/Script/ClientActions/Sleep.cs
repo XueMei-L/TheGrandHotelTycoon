@@ -28,9 +28,6 @@ public class Sleep : GAction
     public override bool PostPerform()
     {
         Debug.Log($"【{gameObject.name}】执行postperform了");
-        // 侧躺角度 (侧身 90 度，这里假设床的默认旋转角度是 (0, 0, 0))
-        // 旋转90度
-        // target.transform.rotation = Quaternion.Euler(90, 180, 0);
 
         // beliefs.ModifyState("isComfortable", 1);
         beliefs.ModifyState("isRested", 1);

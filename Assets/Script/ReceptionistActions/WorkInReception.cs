@@ -34,6 +34,7 @@ public class WorkInReception : GAction
             {
                 // 塞进客人的个人背包
                 currentTargetClient.GetComponent<GAgent>().inventory.AddItem(assignedRoom);
+                GWorld.Instance.GetWorld().ModifyState("freeRoom", -1); // 全局空房数量 -1
                 // 直接修改客人的个人信念
                 currentTargetClient.GetComponent<GAgent>().beliefs.ModifyState("getRoom", 1);
                 

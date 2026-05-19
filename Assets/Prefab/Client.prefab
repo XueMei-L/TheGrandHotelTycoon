@@ -328,6 +328,9 @@ GameObject:
   - component: {fileID: 3383527883929816331}
   - component: {fileID: 3377054938950811525}
   - component: {fileID: 6450365190049871491}
+  - component: {fileID: 8527232880310088546}
+  - component: {fileID: 3723716882022730264}
+  - component: {fileID: -96245389778371041}
   m_Layer: 0
   m_Name: Client
   m_TagString: Client
@@ -529,7 +532,7 @@ MonoBehaviour:
   - key: getRoom
     value: 0
   afterEffects:
-  - key: inRoom
+  - key: goToRoom
     value: 0
   agent: {fileID: 0}
   running: 0
@@ -599,7 +602,7 @@ MonoBehaviour:
   cost: 1
   target: {fileID: 0}
   targetTag: 
-  duration: 0
+  duration: 25
   preConditions:
   - key: inRoom
     value: 0
@@ -624,12 +627,89 @@ MonoBehaviour:
   cost: 1
   target: {fileID: 0}
   targetTag: 
-  duration: 0
+  duration: 25
   preConditions:
   - key: isRested
     value: 0
   afterEffects:
   - key: eatBreakfast
+    value: 0
+  agent: {fileID: 0}
+  running: 0
+--- !u!114 &8527232880310088546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265153794565017798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ac08da6cadcf8458612d85fdc5d1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PackLuggage
+  actionName: PackLuggage
+  cost: 1
+  target: {fileID: 0}
+  targetTag: 
+  duration: 0
+  preConditions:
+  - key: eatBreakfast
+    value: 0
+  afterEffects:
+  - key: hasPackedLuggage
+    value: 0
+  agent: {fileID: 0}
+  running: 0
+--- !u!114 &3723716882022730264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265153794565017798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f42ab5c77cfc7844db61e90cb2689091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CheckOut
+  actionName: CheckOut
+  cost: 1
+  target: {fileID: 0}
+  targetTag: Reception
+  duration: 0
+  preConditions:
+  - key: hasPackedLuggage
+    value: 0
+  - key: getRoom
+    value: 0
+  afterEffects:
+  - key: hasCheckedOut
+    value: 0
+  agent: {fileID: 0}
+  running: 0
+--- !u!114 &-96245389778371041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265153794565017798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32545b5af51817243a62e209966dfaa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeaveHotel
+  actionName: LeaveHotel
+  cost: 1
+  target: {fileID: 0}
+  targetTag: Home
+  duration: 0
+  preConditions:
+  - key: hasCheckedOut
+    value: 0
+  afterEffects:
+  - key: LeaveHotel
     value: 0
   agent: {fileID: 0}
   running: 0

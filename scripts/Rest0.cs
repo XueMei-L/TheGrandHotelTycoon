@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rest : GAction
+public class Rest0 : GAction
 {
     public override bool PrePerform()
     {

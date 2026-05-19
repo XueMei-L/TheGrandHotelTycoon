@@ -5,7 +5,6 @@ using UnityEngine;
 public class PackLuggage : GAction
 {
     // 🌟 用一个变量记录这个客人最终锁定的那把椅子，供 PostPerform 释放使用
-    private RestaurantChair chosenChair = null;
 
     public override bool PrePerform()
     {
@@ -13,6 +12,7 @@ public class PackLuggage : GAction
         if (myRoom != null)
         {
             target = myRoom.transform.Find("Closet").gameObject;
+            Debug.Log($"【{gameObject.name}】在打包行李了");
             return true;
         }
         Debug.LogError($"【{gameObject.name}】想去房间，但是背包里根本没找到房间钥匙(Room)!");
@@ -24,6 +24,7 @@ public class PackLuggage : GAction
     {
 
         // 修改信念，达成目标
+        beliefs.ModifyState("clientWaiting", -1);
         beliefs.ModifyState("hasPackedLuggage", 1);
         Debug.Log($"【客人】{gameObject.name} 打包好行李了,准备去checkOut。");
         return true;
