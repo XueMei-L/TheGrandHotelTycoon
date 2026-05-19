@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI; // 引入导航
 
 public class PickUpGuest : GAction
 {
@@ -11,39 +12,38 @@ public class PickUpGuest : GAction
             return false;
 
         GameObject guestsRoom = target.GetComponent<GAgent>().inventory.FindItemWithTag("Room");
-        if (guestsRoom != null)
-            // inventory.AddItem(guestsRoom);
+        if (guestsRoom != null) {
             Debug.Log($"【行李员】成功接到客人 {target.name}，得知他已经被前台分配到了：{guestsRoom.name}");
-        else
-        {
-            GWorld.Instance.AddClient(target);
-            target = null;
-            return false;
         }
-        // 保底机制：如果这个客人居然没被分配房间，把他放回队列，动作取消
         GWorld.Instance.GetWorld().ModifyState("freeRoom", -1);
         return true;
     }
 
     public override bool PostPerform()
     {
-        // if (target)
-        //     target.GetComponent<GAgent>().inventory.AddItem(resource);
+        // 大厅排队人数减 1
         GWorld.Instance.GetWorld().ModifyState("clientWaiting", -1);
-        
+
+        // 🚨【老师流派核心逻辑】
+        // 我们绝对不关客人的 NavMeshAgent，绝对不写 SetParent！
+        // 我们只需要像老师那样，把房间（钥匙）塞到客人的背包（inventory）里去！
         if (target != null)
         {
-            // 3. 让客人变成行李员的子物体，跟着走
-            target.transform.SetParent(this.transform);
-            target.transform.localPosition = new Vector3(0, 0, -1.5f);
+            GAgent clientGAgent = target.GetComponent<GAgent>();
             
-            // 激活客人的跟随信念
-            target.GetComponent<GAgent>().beliefs.ModifyState("beingEscorted", 1);
-            // target.GetComponent<GAgent>().beliefs.ModifyState("inRoom", 1);
+            // 假设你在别的地方已经把 Room 塞给客人了，这里做个双保险确保他包里有这把钥匙
+            GameObject guestsRoom = clientGAgent.inventory.FindItemWithTag("Room");
+            
+            // 💡 顺便在客人的信念（beliefs）里打上一个标记，告诉客人的大脑：“行李员来接你了，你可以开始出发去房间了！”
+            clientGAgent.beliefs.ModifyState("conciergeArrived", 1);
+            
+            Debug.Log($"【老师流派】行李员暗中拍了拍 {target.name} 的肩膀，触发客人的回房动作，各自出发！");
         }
         
-        // 4. 告诉行李员自己：接到人了
+        // 告诉行李员自己：接到人（任务同步完成）
         beliefs.ModifyState("hasPickedUpGuest", 1);
+        beliefs.ModifyState("clientWaiting", 1); // 确保干活期间行李员大厅状态处于忙碌
+        
         return true;
     }
 }

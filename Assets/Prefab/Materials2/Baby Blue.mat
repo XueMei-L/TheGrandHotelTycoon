@@ -29,6 +29,6 @@ Material:
     - _GlossMapScale: 0
     - _SmoothnessTextureChannel: 1
     m_Colors:
-    - _Color: {r: 0.16078432, g: 0.37647063, b: 0.56078434, a: 1}
+    - _Color: {r: 0.3584906, g: 0.07237451, b: 0.079028375, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

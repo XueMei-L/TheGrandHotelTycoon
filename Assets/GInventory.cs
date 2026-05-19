@@ -36,4 +36,21 @@ public class GInventory
             items.RemoveAt(indexToRemove);
         }
     }
+    // public GameObject RemoveItemWithTag(string tag)
+    // {
+    //     int indexToRemove = -1;
+    //     foreach (GameObject g in items)
+    //     {
+    //         indexToRemove++;
+    //         if (g.tag == tag)
+    //             break;
+    //     }
+    //     if (indexToRemove > -1)
+    //     {
+    //         GameObject item = items[indexToRemove];
+    //         items.RemoveAt(indexToRemove);
+    //         return item;
+    //     }
+    //     return null;
+    // }
 }

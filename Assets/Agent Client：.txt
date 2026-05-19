@@ -4,19 +4,25 @@ Agent Client：
     Target Tag(Area)：Hotel Door
     Duration: 0s
     Pre Condition：
-    After Effects: hasArrived && hasBooking = 1 && wantCheckIn = 1
+    After Effects: hasArrived
+        全局：guestWaitingCheckIn +1 
 
     Event2: GoToReceptionCheckIn
     Target Tag(Area)：Reception
     Duration: 5s
-    Pre Condition：hasArrived && hasBooking = 1 && wantCheckIn = 1
-    After Effects: guestAtCounter = 1 
+    Pre Condition：hasArrived 
+    After Effects:
+        个人：hasRegisted = 1， getRoom = 1
+        全局：guestWaitingCheckIn -1
 
     Event3: GoToRoom
-    Target Tag(Area): Room
+    Target Tag(Area): inventary找room
     Duration: 3s
-    Pre Condition：clientHasRegisted && roomIsClean
-    After Effects: isRested && isHungry = 1
+    Pre Condition：getRoom
+    After Effects: inRoom = 1
+
+    
+
 
     Event4: GoToBreakFast Room
     Target Tag(Area): WaitingBreakFast Zone

@@ -1,0 +1,40 @@
+using UnityEngine;
+
+public class Sleep : GAction
+{
+    public override bool PrePerform()
+    {
+        // 1. 获取当前角色所在的房间
+        GameObject myRoom = this.GetComponent<GAgent>().inventory.FindItemWithTag("Room");
+        if (myRoom == null) return false;
+
+        // 2. 在房间的子物体中寻找床 (假设你给房间里的床预制体挂了 "Bed" 标签，或者用名字查找)
+        Transform bedTransform = myRoom.transform.Find("BedArea"); 
+        if (bedTransform != null)
+        {
+            target = bedTransform.gameObject;
+            
+            // 【高级玩法】如果你想让客人随机选择，可以在这里动态随机扰动 Cost
+            // cost = Random.Range(1f, 5f); 
+            // cost = 2; 
+            // duration = Random.Range(5f, 15f); 
+            Debug.Log($"【{gameObject.name}】在床上了");
+            return true;
+        }
+        Debug.LogError($"【GOAP错误】在房间 {myRoom.name} 下面，找不到名字叫 \"BedArea\" 的子物体！请检查场景层级！");
+        return false;
+    }
+
+    public override bool PostPerform()
+    {
+        Debug.Log($"【{gameObject.name}】执行postperform了");
+        // 侧躺角度 (侧身 90 度，这里假设床的默认旋转角度是 (0, 0, 0))
+        // 旋转90度
+        // target.transform.rotation = Quaternion.Euler(90, 180, 0);
+
+        // beliefs.ModifyState("isComfortable", 1);
+        beliefs.ModifyState("isRested", 1);
+        Debug.Log($"【{gameObject.name}】在床上美美地睡了一觉！");
+        return true;
+    }
+}

@@ -1,76 +1,4 @@
-﻿// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-
-// public sealed class GWorld
-// {
-//     private static readonly GWorld instance = new GWorld();
-//     private static WorldStates world;
-//     private static Queue<GameObject> clients;
-//     private static Queue<GameObject> rooms;
-//     // private static Queue<GameObject> patients;
-//     // private static Queue<GameObject> cubicles;
-
-//     static GWorld()
-//     {
-//         world = new WorldStates();
-//         clients = new Queue<GameObject>();
-//         rooms = new Queue<GameObject>();
-
-//         clients = new Queue<GameObject>();
-//         // find with target room
-//         GameObject[] rm = GameObject.FindGameObjectsWithTag("Room");
-//         foreach (GameObject r in rm)
-//             rooms.Enqueue(r);
-            
-//         if (rm.Length > 0)
-//             world.ModifyState("freeRoom", rm.Length);
-
-//         Time.timeScale = 5; // 加快游戏运行速度
-//     }
-
-//     private GWorld()
-//     {
-//     }
-
-//     // 3. 核心：正确管理【客人】的加入和离开
-//     public void AddClient(GameObject p)
-//     {
-//         clients.Enqueue(p); // 👍 确保进入的是 clients 队列
-//     }
-
-//     public GameObject RemoveClient()
-//     {
-//         if (clients.Count == 0) return null;
-//         return clients.Dequeue(); // 👍 前台或服务员可以正确叫号了
-//     }
-
-//     // 4. 管理【房间】的借还
-//     public void AddRoom(GameObject p)
-//     {
-//         rooms.Enqueue(p);
-//     }
-
-//     public GameObject RemoveRoom()
-//     {
-//         if (rooms.Count == 0) return null;
-//         return rooms.Dequeue();
-//     }
-
-//     public static GWorld Instance
-//     {
-//         get { return instance; }
-//     }
-
-//     public WorldStates GetWorld()
-//     {
-//         return world;
-//     }
-// }
-
-
-// Patient Version
-using System.Collections;
+﻿// Patient Version
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -83,12 +11,14 @@ public sealed class GWorld
     // 酒店核心队列：客人排队队列、空闲房间队列
     private static Queue<GameObject> clients;
     private static Queue<GameObject> rooms;
+    private static Queue<GameObject> restaurantChairs;
 
     static GWorld()
     {
         world = new WorldStates();
         clients = new Queue<GameObject>();
         rooms = new Queue<GameObject>();
+        restaurantChairs = new Queue<GameObject>();
 
         // 自动寻找场景中所有带有 "Room" Tag 的房间物体，并塞进空闲房间队列
         GameObject[] rm = GameObject.FindGameObjectsWithTag("Room");
@@ -102,6 +32,15 @@ public sealed class GWorld
         {
             world.ModifyState("freeRoom", rm.Length);
         }
+
+        GameObject[] chairs = GameObject.FindGameObjectsWithTag("RestaurantChair");
+        foreach (GameObject chair in chairs)
+        {
+            restaurantChairs.Enqueue(chair);
+        }
+
+        Debug.Log($"【GWorld】场景里一共有 {chairs.Length} 把餐厅椅子。");
+
 
         // 老师框架自带：将游戏时间加速 5 倍，方便观察 AI 走动
         Time.timeScale = 5; 
@@ -134,11 +73,13 @@ public sealed class GWorld
     public GameObject PrintClientList()
     {
         if (clients.Count == 0) return null;
-        foreach (GameObject c in clients)
-        {
-            Debug.Log(c);
-        }
-        return clients.Dequeue();
+        Debug.Log("当前排队等候的客人有：" + clients.Count);
+        // foreach (GameObject c in clients)
+        // {
+        //     Debug.Log(c);
+        // }
+        // return clients.Dequeue();
+        return null;
     }
 
     // --- 房间队列管理 ---
@@ -147,9 +88,26 @@ public sealed class GWorld
         rooms.Enqueue(p);
     }
 
+    public int GetRoomCount()
+    {
+        return rooms.Count;
+    }
+
     public GameObject RemoveRoom()
     {
         if (rooms.Count == 0) return null;
         return rooms.Dequeue();
     }
+
+    public GameObject RemoveChair()
+    {
+        if (restaurantChairs.Count == 0) return null;
+        return restaurantChairs.Dequeue();
+    }
+    
+    public void AddChair(GameObject c)
+    {
+        restaurantChairs.Enqueue(c);
+    }
+
 }

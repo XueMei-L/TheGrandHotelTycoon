@@ -15,7 +15,16 @@ TagManager:
   - Client
   - RestRoom
   - RestArea
-  - workArea
+  - Bathroom
+  - PublicArea
+  - Shower
+  - Bed
+  - Chair
+  - BathTub
+  - KitechenPublicArea
+  - WorkArea
+  - RestaurantArea
+  - RestaurantChair
   layers:
   - Default
   - TransparentFX
