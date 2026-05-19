@@ -12,15 +12,17 @@ public class GoToRoom : GAction
             target = myRoom;
             return true;
         }
+        Debug.LogError($"【{gameObject.name}】想去房间，但是背包里根本没找到房间钥匙(Room)!");
         return false;
     }
 
     public override bool PostPerform()
     {
-        beliefs.ModifyState("goToRoom", 1);
+        // 成功进入房间，达成终极目标
+        // beliefs.ModifyState("goToRoom", 1);
         beliefs.ModifyState("inRoom", 1);
         
-        Debug.Log($"【{gameObject.name}】go to room: {target.name}。");
+        Debug.Log($"【{gameObject.name}】已经成功进入房间：{target.name}。");
         return true;
     }
 }

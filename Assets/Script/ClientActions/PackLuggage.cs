@@ -12,7 +12,7 @@ public class PackLuggage : GAction
         if (myRoom != null)
         {
             target = myRoom.transform.Find("Closet").gameObject;
-            Debug.Log($"【{gameObject.name}】在打包行李了");
+            
             return true;
         }
         Debug.LogError($"【{gameObject.name}】想去房间，但是背包里根本没找到房间钥匙(Room)!");

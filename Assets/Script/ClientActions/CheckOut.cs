@@ -8,7 +8,7 @@ public class CheckOut : GAction
 
     public override bool PrePerform()
     {
-        
+
         return true;
     }
 

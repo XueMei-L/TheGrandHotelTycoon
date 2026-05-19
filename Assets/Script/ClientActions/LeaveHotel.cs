@@ -8,17 +8,15 @@ public class LeaveHotel : GAction
     {
         if(!GWorld.Instance.GetWorld().HasState("getRoom"))
         {
-            Debug.Log($"【{gameObject.name}】has checed out");
-            return true;
+            Debug.Log($"【{gameObject.name}】没有房间了，无法离开酒店！");
+            return false;
         }
         return true;
     }
 
     public override bool PostPerform()
     {
-        Debug.Log($"【{gameObject.name}】has left the hotel, destroy the game object.");
         beliefs.ModifyState("LeaveHotel", 1);
-        Destroy(gameObject);
         return true;
     }
 }

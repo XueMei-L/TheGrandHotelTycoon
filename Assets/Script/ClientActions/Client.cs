@@ -9,6 +9,7 @@ public class Client : GAgent
     {
         base.Start();
 
+        // 这样一出生他会绝对优先去走大门、找前台
         SubGoal s1 = new SubGoal("hasRegisted", 1, true);
         goals.Add(s1, 5);
         
@@ -52,6 +53,7 @@ public class Client : GAgent
     //         if (beliefs.HasState("isComfortable"))
     //         {
     //             beliefs.RemoveState("isComfortable");
+    //             Debug.Log($"【系统】{gameObject.name} 感觉无聊了，想在房间里换个活动...");
     //         }
     //     }
     // }
