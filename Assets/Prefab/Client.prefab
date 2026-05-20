@@ -555,7 +555,7 @@ MonoBehaviour:
   cost: 1
   target: {fileID: 0}
   targetTag: 
-  duration: 10
+  duration: 15
   preConditions:
   - key: inRoom
     value: 0

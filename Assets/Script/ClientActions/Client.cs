@@ -9,7 +9,6 @@ public class Client : GAgent
     {
         base.Start();
 
-        // 这样一出生他会绝对优先去走大门、找前台
         SubGoal s1 = new SubGoal("hasRegisted", 1, true);
         goals.Add(s1, 5);
         

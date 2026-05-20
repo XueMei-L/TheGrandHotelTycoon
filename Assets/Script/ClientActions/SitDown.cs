@@ -11,8 +11,8 @@ public class SitDown : GAction
         if (chairTransform != null)
         {
             target = chairTransform.gameObject;
-            // cost = 1; 
-            // duration = Random.Range(1f, 10f); 
+            cost = Random.Range(1f, 5f); 
+            duration = Random.Range(1f, 10f); 
             return true;
         }
         Debug.LogError($"【GOAP错误】在房间 {myRoom.name} 下面，找不到名字叫 \"Chair\" 的子物体！请检查场景层级！");

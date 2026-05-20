@@ -13,11 +13,8 @@ public class Sleep : GAction
         if (bedTransform != null)
         {
             target = bedTransform.gameObject;
-            
-            // 【高级玩法】如果你想让客人随机选择，可以在这里动态随机扰动 Cost
-            // cost = Random.Range(1f, 5f); 
-            // cost = 2; 
-            // duration = Random.Range(5f, 15f); 
+            cost = Random.Range(5f, 10f); 
+            duration = Random.Range(1f, 10f); 
             Debug.Log($"【{gameObject.name}】在床上了");
             return true;
         }
@@ -29,7 +26,6 @@ public class Sleep : GAction
     {
         Debug.Log($"【{gameObject.name}】执行postperform了");
 
-        // beliefs.ModifyState("isComfortable", 1);
         beliefs.ModifyState("isRested", 1);
         Debug.Log($"【{gameObject.name}】在床上美美地睡了一觉！");
         return true;

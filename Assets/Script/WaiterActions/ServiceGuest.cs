@@ -22,6 +22,7 @@ public class ServiceGuest : GAction
     public override bool PostPerform()
     {
         // 服务完了，给客人打个勾
+        GWorld.Instance.GetWorld().ModifyState("clientWaiting", -1);
         beliefs.ModifyState("serviceGuest", 1);
         Debug.Log($"【服务员】成功服务了 客人，完成目标 ServiceGuest");
         return true;
