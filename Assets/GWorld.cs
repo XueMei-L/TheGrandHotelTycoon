@@ -8,11 +8,8 @@ public sealed class GWorld
     private static readonly GWorld instance = new GWorld();
     private static WorldStates world;
     
-    // 酒店核心队列：客人排队队列、空闲房间队列
     private static Queue<GameObject> clients;
-    // private static Queue<GameObject> rooms;
     private static List<GameObject> rooms;
-    // private static Queue<GameObject> restaurantChairs;
 
     private static List<GameObject> restaurantChairs;
 
@@ -31,7 +28,7 @@ public sealed class GWorld
         }
             
         // 如果场景里有房间，初始化世界状态中的空闲房间数量
-        if (rm.Length > 0)
+        if (rm.Length >= 0)
         {
             world.ModifyState("freeRoom", rm.Length);
         }

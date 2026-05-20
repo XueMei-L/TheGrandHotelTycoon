@@ -50,8 +50,6 @@ public class WorkInReception : GAction
         }
 
         // 🌟 核心修复 2：为了让前台能接待下一个动态生成的客人，
-        // 必须在动作彻底结束时，强行把自己的工作标签摘掉！
-        // 这样下一帧如果 guestWaitingCheckIn 还大于 0，GOAP 就会逼她再次走这个 Action！
         StartCoroutine(ResetWorkingState());
 
         return true;

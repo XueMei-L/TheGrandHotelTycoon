@@ -30,11 +30,20 @@ public class WorldStates
 
     public void ModifyState(string key, int value)
     {
+        // if (states.ContainsKey(key))
+        // {
+        //     states[key] += value;
+        //     if (states[key] <= 0)
+        //         RemoveState(key);
+        // }
         if (states.ContainsKey(key))
         {
             states[key] += value;
-            if (states[key] <= 0)
-                RemoveState(key);
+            // print freeroom = 0
+            if (states[key] < 0)
+            {
+                states[key] = 0;
+            }
         }
         else
             states.Add(key, value);

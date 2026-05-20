@@ -35,7 +35,7 @@ public class Client : GAgent
         goals.Add(s10, 3);
 
         SubGoal s11 = new SubGoal("leaveHotel", 1, true);
-        goals.Add(s11, 2);
+        goals.Add(s11, 3);
 
         // StartCoroutine(ComfortLoop());
         

@@ -28,3 +28,29 @@ public class ServiceGuest : GAction
     }
 
 }
+
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+
+// public class ServiceGuest : GAction
+// {
+//     public override bool PrePerform()
+//     {
+//         // 🌟 精准数值判定：只要数字降到 0 或以下，服务员直接拒绝空跑！
+
+//         // 🌟 2. 智能寻找真正有客人的服务区
+//         GameObject[] serviceAreas = GameObject.FindGameObjectsWithTag("ServiceArea");
+//         target = serviceAreas[Random.Range(0, serviceAreas.Length)];
+//         Debug.Log($"【服务员】发现有客人的区域，正前往：{target.name}");
+//         return true;
+//     }
+
+//     public override bool PostPerform()
+//     {
+//         // 服务完扣减账本
+//         // GWorld.Instance.GetWorld().ModifyState("clientWaiting", -1);
+//         beliefs.ModifyState("serviceGuest", 1);
+//         return true;
+//     }
+// }

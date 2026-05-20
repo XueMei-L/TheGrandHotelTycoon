@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EatBreakfast : GAction
+public class testWaiter : GAction
 {
     private GameObject chosenChair = null;
 

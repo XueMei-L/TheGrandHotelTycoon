@@ -6,6 +6,18 @@ public class GInventory
 {
     public List<GameObject> items = new List<GameObject>();
 
+    public bool HasItem(string itemName)
+    {
+        foreach (GameObject i in items)
+        {
+            if (i.name == itemName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void AddItem(GameObject i)
     {
         items.Add(i);
