@@ -1,7 +1,7 @@
 // Version 1
 Agent Client：
     Event1：GoToHotel
-    Target Tag(Area)：Hotel Door
+    Target Tag(Area)：Hotel
     Duration: 0s
     Pre Condition：
     After Effects: hasArrived
@@ -16,10 +16,34 @@ Agent Client：
         全局：guestWaitingCheckIn -1
 
     Event3: GoToRoom
-    Target Tag(Area): inventary找room
-    Duration: 3s
+    Target Tag(Area): inventary find room
+    Duration: 0s
     Pre Condition：getRoom
     After Effects: inRoom = 1
+
+    Event4: Sitdown
+    Target Tag(Area): Chair
+    Duration: 10s
+    Pre Condition：inRoom
+    After Effects: Sitdown
+
+    Event5: TakeAShower
+    Target Tag(Area): bathtube
+    Duration: 15s
+    Pre Condition：inRoom
+    After Effects: TakeAShower = 1
+    
+    Event6: Sleep
+    Target Tag(Area): bedArea
+    Duration: 15s
+    Pre Condition：inRoom
+    After Effects: isRested = 1
+
+    Event6: EatBreakFast
+    Target Tag(Area): Restaurant-Chair
+    Duration: 15s
+    Pre Condition：isRested
+    After Effects: EatBreakFast = 1
 
     
 
