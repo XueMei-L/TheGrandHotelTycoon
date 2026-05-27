@@ -15,7 +15,6 @@ public class SitDown : GAction
             duration = Random.Range(1f, 10f); 
             return true;
         }
-        Debug.LogError($"【GOAP错误】在房间 {myRoom.name} 下面，找不到名字叫 \"Chair\" 的子物体！请检查场景层级！");
         return false;
     }
 
@@ -24,7 +23,7 @@ public class SitDown : GAction
         // beliefs.ModifyState("isComfortable", 1);
         beliefs.ModifyState("isSitting", 1);
         beliefs.ModifyState("inRoom", 1);
-        Debug.Log($"【{gameObject.name}】坐在椅子上刷了会手机。");
+        Debug.Log($"[{gameObject.name}], sitdown in the room");
         return true;
     }
 }

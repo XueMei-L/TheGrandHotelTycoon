@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Client : GAgent
 {
-    // 使用 new void Start() 覆盖基类的 Start 方法
     new void Start()
     {
         base.Start();

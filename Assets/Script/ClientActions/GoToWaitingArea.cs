@@ -11,11 +11,11 @@ public class GoToWaitingArea : GAction
 
     public override bool PostPerform()
     {
-        // 触发别人的
+        // other people
         GWorld.Instance.GetWorld().ModifyState("clientWaiting", 1);
         GWorld.Instance.AddClient(this.gameObject);
         
-        // 触发自己的
+        // self state
         beliefs.ModifyState("isWaiting", 1);
         return true;
     }

@@ -11,13 +11,12 @@ public class TakeAShower : GAction
 
         if (showerTransform != null)
         {
-            Debug.Log($"【{gameObject.name}】找到了浴室，准备洗澡了！");
+            Debug.Log($"[{gameObject.name}], found the bathroom, ready to take a shower.");
             target = showerTransform.gameObject;
             cost = Random.Range(1f, 3f); 
             duration = Random.Range(5f, 15f); 
             return true;
         }
-        Debug.LogError($"【GOAP错误】在房间 {myRoom.name} 下面，找不到名字叫 \"BathTub\" 的子物体！请检查场景层级！");
         return false;
     }
 
@@ -25,7 +24,7 @@ public class TakeAShower : GAction
     {
         beliefs.ModifyState("takeAShower", 1);
         beliefs.ModifyState("inRoom", 1);
-        Debug.Log($"【{gameObject.name}】舒服地洗了个澡！");
+        Debug.Log($"[{gameObject.name}], has finished taking a shower.");
         return true;
     }
 }

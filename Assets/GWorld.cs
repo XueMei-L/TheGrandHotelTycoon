@@ -4,7 +4,6 @@ using UnityEngine;
 
 public sealed class GWorld
 {
-    // 单例模式：确保全局只有一个调度室
     private static readonly GWorld instance = new GWorld();
     private static WorldStates world;
     
@@ -20,14 +19,12 @@ public sealed class GWorld
         rooms = new List<GameObject>();
         restaurantChairs = new List<GameObject>();
 
-        // 自动寻找场景中所有带有 "Room" Tag 的房间物体，并塞进空闲房间队列
         GameObject[] rm = GameObject.FindGameObjectsWithTag("Room");
         foreach (GameObject r in rm)
         {
             rooms.Add(r);
         }
             
-        // 如果场景里有房间，初始化世界状态中的空闲房间数量
         if (rm.Length >= 0)
         {
             world.ModifyState("freeRoom", rm.Length);
@@ -39,10 +36,6 @@ public sealed class GWorld
             restaurantChairs.Add(chair);
         }
 
-        Debug.Log($"【GWorld】场景里一共有 {chairs.Length} 把餐厅椅子。");
-
-
-        // 老师框架自带：将游戏时间加速 5 倍，方便观察 AI 走动
         Time.timeScale = 5; 
     }
 
@@ -58,7 +51,6 @@ public sealed class GWorld
         return world;
     }
 
-    // --- 客人队列管理 ---
     public void AddClient(GameObject p)
     {
         clients.Enqueue(p);
@@ -73,7 +65,7 @@ public sealed class GWorld
     public GameObject PrintClientList()
     {
         if (clients.Count == 0) return null;
-        Debug.Log("当前排队等候的客人有：" + clients.Count);
+        Debug.Log($"[GWorld] Current number of waiting clients: {clients.Count}");
         return null;
     }
 

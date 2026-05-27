@@ -10,7 +10,7 @@ public class Chef : GAgent
 
         SubGoal s1 = new SubGoal("isCooking", 1, false);
         goals.Add(s1, 5);
-
+    
     }
     
 }
