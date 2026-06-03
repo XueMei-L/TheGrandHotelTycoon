@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lookAround : GAction
+public class PrepareFood : GAction
 {
     public override bool PrePerform()
     {
@@ -21,7 +21,7 @@ public class lookAround : GAction
 
     public override bool PostPerform()
     {
-        beliefs.ModifyState("lookAround", 1); 
+        beliefs.ModifyState("prepareFood", 1);
         return true;
     }
 }

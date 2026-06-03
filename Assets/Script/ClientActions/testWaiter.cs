@@ -44,7 +44,6 @@ public class testWaiter : GAction
 
     public override bool PostPerform()
     {
-        // 释放椅子，但注意：此时先不要彻底清空椅子的 currentGuest，留给服务员认人或者清理
         GWorld.Instance.AddChair(chosenChair); 
         
         beliefs.ModifyState("eatBreakfast", 1);

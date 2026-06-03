@@ -6,11 +6,11 @@ public class GoToHotel : GAction
 {
     public override bool PrePerform()
     {
-        // testing
-        if (beliefs.HasState("hasRegisted") || beliefs.HasState("getRoom"))
-        {
-            return false;
-        }
+        // // testing
+        // if (beliefs.HasState("hasRegisted") || beliefs.HasState("getRoom"))
+        // {
+        //     return false;
+        // }
         return true;
     }
 

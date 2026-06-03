@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 353596639813386504}
   - component: {fileID: 2147290844716835736}
   - component: {fileID: 6322942815554368863}
-  - component: {fileID: 207011438645599876}
+  - component: {fileID: 4238348590535732854}
   - component: {fileID: 6430033872842236507}
   m_Layer: 0
   m_Name: Waiter
@@ -490,7 +490,7 @@ MonoBehaviour:
     value: 0
   agent: {fileID: 0}
   running: 0
---- !u!114 &207011438645599876
+--- !u!114 &4238348590535732854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -499,18 +499,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3960012288668818774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02414effd2144024b8571beaf8dfa511, type: 3}
+  m_Script: {fileID: 11500000, guid: 69321a0c14f7dbc4dac6592157dc33ad, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::waiterRest
-  actionName: WaiterRest
+  m_EditorClassIdentifier: Assembly-CSharp::GetFood
+  actionName: Action
   cost: 1
   target: {fileID: 0}
   targetTag: 
   duration: 0
   preConditions: []
-  afterEffects:
-  - key: isRested
-    value: 0
+  afterEffects: []
   agent: {fileID: 0}
   running: 0
 --- !u!114 &6430033872842236507

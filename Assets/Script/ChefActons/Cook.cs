@@ -6,22 +6,16 @@ public class Cook : GAction
 {
     public override bool PrePerform()
     {
-        GameObject[] publicAreas = GameObject.FindGameObjectsWithTag("KitechenPublicArea");
-
-        if (publicAreas != null && publicAreas.Length > 0)
-        {
-            int randomIndex = Random.Range(0, publicAreas.Length);
-            
-            this.target= publicAreas[randomIndex];
-
-            return true;
-        }
-        return false; 
+        GameObject cookarea = GameObject.FindWithTag("CookArea");
+        target = cookarea;
+        return true;
     }
 
     public override bool PostPerform()
     {
-        beliefs.ModifyState("isCooking", 1); 
+        beliefs.ModifyState("isCooking", 1);
+        GWorld.Instance.GetWorld().RemoveState("FoodIsEmpty");
+        GWorld.Instance.GetWorld().ModifyState("IsFoodReady", 1);
         return true;
     }
 }

@@ -28,7 +28,8 @@ public class PackLuggage : GAction
 
     public override bool PostPerform()
     {
-        GWorld.Instance.GetWorld().ModifyState("clientWaiting", -1);
+        // test
+        // GWorld.Instance.GetWorld().ModifyState("clientWaiting", -1);
         beliefs.ModifyState("hasPackedLuggage", 1);
         
         Debug.Log($"[Client]{gameObject.name} go check out");

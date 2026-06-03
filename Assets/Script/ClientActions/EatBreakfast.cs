@@ -9,6 +9,7 @@ public class EatBreakfast : GAction
 
     public override bool PrePerform()
     {
+        // asignar una silla al cliente
         GameObject chair = GWorld.Instance.RemoveChair();
         chosenChair = chair;
         if (chair != null)
@@ -29,6 +30,7 @@ public class EatBreakfast : GAction
                 chairScript.currentGuest = this.gameObject;
             }
 
+            // test
             // GWorld.Instance.GetWorld().ModifyState("clientWaiting", +1);
             return true;
         }

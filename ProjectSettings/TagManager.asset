@@ -26,6 +26,8 @@ TagManager:
   - RestaurantArea
   - RestaurantChair
   - ServiceArea
+  - CookArea
+  - GetFoodArea
   layers:
   - Default
   - TransparentFX

@@ -5,15 +5,15 @@ Agent Client：
     Duration: 0s
     Pre Condition：
     After Effects: hasArrived
-        全局：guestWaitingCheckIn +1 
+        global：guestWaitingCheckIn +1 
 
     Event2: GoToReceptionCheckIn
     Target Tag(Area)：Reception
     Duration: 5s
     Pre Condition：hasArrived 
     After Effects:
-        个人：hasRegisted = 1， getRoom = 1
-        全局：guestWaitingCheckIn -1
+        personal：hasRegisted = 1， getRoom = 1
+        global：guestWaitingCheckIn -1
 
     Event3: GoToRoom
     Target Tag(Area): inventary find room
@@ -39,238 +39,64 @@ Agent Client：
     Pre Condition：inRoom
     After Effects: isRested = 1
 
-    Event6: EatBreakFast
+    Event7: EatBreakFast
     Target Tag(Area): Restaurant-Chair
     Duration: 15s
     Pre Condition：isRested
     After Effects: EatBreakFast = 1
 
+    Event9: PackLuggage
+    Target Tag(Area): closet
+    Duration: 15s
+    Pre Condition：EatBreakFast
+    After Effects: hasPackedLuggage = 1
+
+    Event10: CheckOut
+    Target Tag(Area): Reception
+    Duration: 15s
+    Pre Condition：hasPackedLuggage
+    After Effects: hasCheckOut = 1
+
+    Event11: LeaveHotel
+    Target Tag(Area): Home
+    Duration: 15s
+    Pre Condition：hasCheckOut
+    After Effects: leaveHotel = 1
+
+
+Agent Receptionist:
+    Event1：ReceivingGuestsToCheckIn
+    Target Tag(Area)：Reception
+    Duration: 3s
+    Pre Condition：guestWaitingCheckIn
+    After Effects: isWorking
+            global:guestWaitingCheckIn -1
+
+
+Agent Chef
+    Event1: prepareFood
+    Target Tag(Area)：KitechenPublicArea1-2-3
+    Duration: 2s
+    Pre Condition：
+    After Effects: prepareFood
+
+    Event1: cook
+    Target Tag(Area)：Kitchen B
+    Duration: 5
+    Pre Condition：foodEmpty
+    After Effects: IsFoodReady = 1, isCooking = 1
+
+
+Agent Waiter
+    Event1: ServiceGuest
+    Target Tag(Area)：publicAreas 1-8
+    Duration: 2s
+    Pre Condition：
+    After Effects: ServiceGuest = 1
+
+    Event2: getFood
+    Target Tag(Area)：FoodArea
+    Duration: 2s
+    Pre Condition：IsFoodReady
+    After Effects: getFood = 1
     
-
-
-    Event4: GoToBreakFast Room
-    Target Tag(Area): WaitingBreakFast Zone
-    Duration: 5s
-    Pre Condition：isHungry = 1
-    After Effects: clientIsWaiting = 1
-
-    Event5: EatBreakFast
-    Target Tag(Area): BreakFast Zone
-    Duration: 5s
-    Pre Condition：breakfastReady=1 && foodServed = 1
-    After Effects: hasEaten = 1 
-
-    Event6: Pack your luggage
-    Target Tag(Area): Room
-    Duration: 3s
-    Pre Condition：???
-    After Effects: isReadyToCheckOut = 1 && wantCheckOut = 1
-
-    Event6: GoToReceptionCheckOut
-    Target Tag(Area): Reception
-    Duration: 3s
-    Pre Condition：isReadyToCheckOut = 1
-    After Effects: guestAtCounter = 1
-
-    Event7: LeaveHotel
-    Target Tag(Area): Reception
-    Duration: 3s
-    Pre Condition：hasClientCheckOut = 1
-    After Effects: 
-
-
-Agent Cleaner:
-    Event1：CleanRoom
-    Target Tag(Area)：Rooms
-    Duration: 10s
-    Pre Condition：roomIsDirty=1 && roomIsEmpty = 1
-    After Effects: roomIsClean=1 && roomIsDirty = 0
-
-    Event2: CleaningHotels
-    Target Tag(Area)：Hotel and Rooms
-    Duration: 10s
-    Pre Condition：allRoomsClean = 1
-    After Effects: HotelIsClean = 1
-
-    Event3: GoToRestRoom
-    Target Tag(Area)：RestRoom
-    Duration: 0s
-    Pre Condition：HotelIsClean = 1
-    After Effects: IsWaiting/ IsResting = 1
-
-
-Agent Chef
-    Event1: GatherFood
-    Target Tag(Area)：Kitchen A
-    Duration: 2s
-    Pre Condition：
-    After Effects: HasIngredients = 1
-
-    Event1: Cook
-    Target Tag(Area)：Kitchen B
-    Duration: 5
-    Pre Condition：hasIngredients = 1
-    After Effects: breakfastReady = 1 && hasIngredients = 0
-
-
-
-Agent Waiter
-    Event1: DeliverFood
-    Target Tag(Area)：BreakFast Zone
-    Duration: 2s
-    Pre Condition：breakfastReady = 1 && clientIsWaiting = 1
-    After Effects: foodServed = 1
-
-
-// Maybe its not necesary
-Agent Receptionist:
-    Event1：ReceivingGuestsToCheckIn
-    Target Tag(Area)：Reception
-    Duration: 3s
-    Pre Condition：guestAtCounter = 1 && wantCheckIn = 1
-    After Effects: clientHasRegisted = 1 && guestAtCounter = 0
-
-    Event2：ReceivingGuestsToCheckOut
-    Target Tag(Area)：Reception
-    Duration: 3s
-    Pre Condition：guestAtCounter = 1 && wantCheckOut = 1
-    After Effects: hasClientCheckOut = 1 && guestAtCounter = 0 roomIsEmpty = 1 && roomIsDirty = 1
-
-    Event3：Work
-    Target Tag(Area)：Reception Work Zone
-    Duration: 5s
-    Pre Condition：guestAtCounter = 0
-    After Effects: isWorking = 1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// version 2
-Agent Client：
-    Event1：GoToHotel
-    Target Tag(Area)：Hotel Door
-    Duration: 0s
-    Pre Condition：
-    After Effects: hasArrived && hasBooking = 1
-
-    Event2: GoToReceptionCheckIn
-    Target Tag(Area)：Reception
-    Duration: 5s
-    Pre Condition：hasArrived && hasBooking = 1
-    After Effects: guestAtCounter = 1
-
-    Event3: GoToRoom
-    Target Tag(Area): Room
-    Duration: 20s
-    Pre Condition：clientHasRegisted && roomIsClean
-    After Effects: isRested
-
-    Event6: Pack your luggage
-    Target Tag(Area): Room
-    Duration: 3s
-    Pre Condition：isRested
-    After Effects: isReadyToCheckOut = 1 && wantCheckOut = 1
-
-    Event6: GoToReceptionCheckOut
-    Target Tag(Area): Reception
-    Duration: 3s
-    Pre Condition：isReadyToCheckOut = 1
-    After Effects: guestAtCounter = 1
-
-    Event7: LeaveHotel
-    Target Tag(Area): Reception
-    Duration: 3s
-    Pre Condition：hasClientCheckOut = 1
-    After Effects: 
-
-
-
-    Event4: GoToBreakFast Room
-    Target Tag(Area): WaitingBreakFast Zone
-    Duration: 5s
-    Pre Condition：isHungry = 1
-    After Effects: clientIsWaiting = 1
-
-    Event5: EatBreakFast
-    Target Tag(Area): BreakFast Zone
-    Duration: 5s
-    Pre Condition：breakfastReady=1 && foodServed = 1
-    After Effects: hasEaten = 1 
-
-Agent Cleaner:
-    Event1：CleanRoom
-    Target Tag(Area)：Rooms
-    Duration: 10s
-    Pre Condition：roomIsDirty=1 && roomIsEmpty = 1
-    After Effects: roomIsClean=1 && roomIsDirty = 0
-
-    Event2: CleaningHotels
-    Target Tag(Area)：Hotel and Rooms
-    Duration: 10s
-    Pre Condition：allRoomsClean = 1
-    After Effects: HotelIsClean = 1
-
-    Event3: GoToRestRoom
-    Target Tag(Area)：RestRoom
-    Duration: 0s
-    Pre Condition：HotelIsClean = 1
-    After Effects: IsWaiting/ IsResting = 1
-
-
-Agent Chef
-    Event1: GatherFood
-    Target Tag(Area)：Kitchen A
-    Duration: 2s
-    Pre Condition：
-    After Effects: HasIngredients = 1
-
-    Event1: Cook
-    Target Tag(Area)：Kitchen B
-    Duration: 5
-    Pre Condition：hasIngredients = 1
-    After Effects: breakfastReady = 1 && hasIngredients = 0
-
-
-
-Agent Waiter
-    Event1: DeliverFood
-    Target Tag(Area)：BreakFast Zone
-    Duration: 2s
-    Pre Condition：breakfastReady = 1 && clientIsWaiting = 1
-    After Effects: foodServed = 1
-
-
-// Maybe its not necesary
-Agent Receptionist:
-    Event1：ReceivingGuestsToCheckIn
-    Target Tag(Area)：Reception
-    Duration: 3s
-    Pre Condition：guestAtCounter = 1 && hasBooking = 1
-    After Effects: clientHasRegisted = 1 && guestAtCounter = 0
-
-    Event2：ReceivingGuestsToCheckOut
-    Target Tag(Area)：Reception
-    Duration: 3s
-    Pre Condition：guestAtCounter = 1 && wantCheckOut = 1
-    After Effects: hasClientCheckOut = 1 && guestAtCounter = 0 && roomIsEmpty = 1 && roomIsDirty = 1
-
-    Event3：Work
-    Target Tag(Area)：Reception Work Zone
-    Duration: 5s
-    Pre Condition：guestAtCounter = 0
-    After Effects: isWorking = 1
